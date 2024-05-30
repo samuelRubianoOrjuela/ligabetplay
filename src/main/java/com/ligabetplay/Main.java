@@ -3,7 +3,6 @@ package com.ligabetplay;
 import java.text.MessageFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
-// import java.util.InputMismatchException;
 
 import com.ligabetplay.Torneo.Torneo;
 import com.ligabetplay.equipo.Equipo;
@@ -13,6 +12,19 @@ import com.ligabetplay.reportes.Reportes;
 
  
 public class Main {
+
+    public static void clearScreen() {         
+        try {             
+            if (System.getProperty("os.name").contains("Windows")) {                 
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();             
+            } else {                 
+                new ProcessBuilder("clear").inheritIO().start().waitFor();             
+            }         
+        } catch (Exception e) {             
+            System.out.println("Error al limpiar la pantalla: " + e.getMessage());         
+        }     
+    }
+
     public static void main(String[] args) {
         
         String header = """
@@ -27,7 +39,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ArrayList<Equipo> listaEquipos = new ArrayList<>();
         boolean isActive = true;
+        mainLoop:
         while (isActive) {
+            clearScreen();
             System.out.println(header);
             
             for (int i = 0; i < menu.length; i++) {
@@ -40,7 +54,9 @@ public class Main {
                     op = Integer.parseInt(sc.nextLine());
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println(errMesage);
+                    System.out.print(errMesage);
+                    sc.nextLine();
+                    continue mainLoop;
                 }
             } while (true);
 

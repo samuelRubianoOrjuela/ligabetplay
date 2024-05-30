@@ -9,6 +9,18 @@ import com.ligabetplay.equipo.Equipo;
 
 public class Newliga {
 
+    public static void clearScreen() {         
+        try {             
+            if (System.getProperty("os.name").contains("Windows")) {                 
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();             
+            } else {                 
+                new ProcessBuilder("clear").inheritIO().start().waitFor();             
+            }         
+        } catch (Exception e) {             
+            System.out.println("Error al limpiar la pantalla: " + e.getMessage());         
+        }     
+    }
+
     public static boolean jugaron(int[] listEqps, int id){
         for (int i : listEqps) {
             if (i == id) {
@@ -77,7 +89,9 @@ public class Newliga {
         return listaEquipos;
     }
 
-    public static ArrayList<Equipo> crearEquipo(Scanner sc, ArrayList<Equipo> listaEquipos, int id) {
+    public static ArrayList<Equipo> crearEquipo(Scanner sc, ArrayList<Equipo> listaEquipos, int id, String header) {
+        clearScreen();
+        System.out.println(header);
         System.out.print("Ingrese el nombre del equipo: ");
         String nombreEquipo = sc.nextLine();
         Equipo newEquipo = new Equipo(id, nombreEquipo);
@@ -86,7 +100,6 @@ public class Newliga {
     }
 
     public static ArrayList<Equipo> main(Scanner sc) {
-         
         String header = """
                 ----------------------
                 | NUEVA LIGA BETPLAY |
@@ -99,8 +112,9 @@ public class Newliga {
         
         boolean isActive = true;
         int id = 1;
+        mainLoop:
         while (isActive) {
-            
+            clearScreen();
             System.out.println(header);
             
             for (int i = 0; i < menu.length; i++) {
@@ -114,14 +128,16 @@ public class Newliga {
                     op = Integer.parseInt(sc.nextLine());
                     break;
                 } catch (NumberFormatException e) {
-                    System.out.println(errMesage);
+                    System.out.print(errMesage);
+                    sc.nextLine();
+                    continue mainLoop;
                 }
                 
             } while (true);
             
             switch (op) {
                 case 1:
-                    listaEquipos = crearEquipo(sc, listaEquipos, id);
+                    listaEquipos = crearEquipo(sc, listaEquipos, id, header);
                     break;
                 case 2:
                     isActive = false;
