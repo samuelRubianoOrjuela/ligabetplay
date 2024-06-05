@@ -8,6 +8,7 @@ import com.ligabetplay.Torneo.Torneo;
 import com.ligabetplay.equipo.Equipo;
 import com.ligabetplay.newliga.Newliga;
 import com.ligabetplay.reportes.Reportes;
+import com.ligabetplay.personal.Personal;
 
 
  
@@ -32,9 +33,9 @@ public class Main {
             | LIGA BETPLAY |
             ----------------
             """;
-        String[] menu = {"Nueva liga","Ver equipos","Reportes","Salir"};
+        String[] menu = {"Nueva liga","Ver equipos","Ingresar personal","Reportes","Salir"};
         
-        String errMesage = "Error: El dato ingresado es incorrecto, intentelo de nuevo";
+        String errMesage = "Error: El dato ingresado es incorrecto, intentelo de nuevo ";
         
         Scanner sc = new Scanner(System.in);
         ArrayList<Equipo> listaEquipos = new ArrayList<>();
@@ -48,17 +49,18 @@ public class Main {
                 System.out.println(MessageFormat.format("{0}. {1}.", (i+1), menu[i]));
             }
             int op;
-            do {                
+            // do {                
                 try {
                     System.out.print("-> ");
                     op = Integer.parseInt(sc.nextLine());
-                    break;
+                    // break;
                 } catch (NumberFormatException e) {
-                    System.out.print(errMesage);
+                    System.out.print
+                    (errMesage);
                     sc.nextLine();
                     continue mainLoop;
                 }
-            } while (true);
+            // } while (true);
 
             switch (op) {
                 case 1:
@@ -73,12 +75,19 @@ public class Main {
                     break;
                 case 3:
                     if (listaEquipos.size() > 0) {
-                        Reportes.main(listaEquipos, sc);
+                        Personal.main(sc, listaEquipos);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
                     }
                     break;                   
                 case 4:
+                    if (listaEquipos.size() > 0) {
+                        Reportes.main(listaEquipos, sc);
+                    } else {
+                        System.out.println("Error: no hay equipos registrados, registra algunos.");
+                    }
+                    break;                   
+                case 5:
                     isActive = false;
                     break;
                 default:

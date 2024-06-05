@@ -132,7 +132,7 @@ public class Reportes {
             | REPORTES LIGA BETPLAY |
             -------------------------
             """;
-        String[] menu = {"Nombre del equipo que mas goles anoto","Nombre del equipo que mas puntos tiene","Nombre del equipo que mas partidos gano","Total de goles anotados por todos los equipos","Promedio de goles anotados en el tornero de la FCF","Ir al menu principal"};
+        String[] menu = {"Nombre del equipo que mas goles anoto","Nombre del equipo que mas puntos tiene","Nombre del equipo que mas partidos gano","Total de goles anotados por todos los equipos","Promedio de goles anotados en el tornero de la FCF","Listar jugadores","Listar cuerpo tecnico","Listar departamento medico","Ir al menu principal"};
         
         String errMesage = "Error: El dato ingresado es incorrecto, intentelo de nuevo";
 
@@ -172,8 +172,15 @@ public class Reportes {
                     totalG(listaEquipos, header, sc);
                     break;   
                 case 5:
-                    promG(listaEquipos, header, sc);   
+                    promG(listaEquipos, header, sc); 
+                    break;  
                 case 6:
+                    break;  
+                case 7:
+                    break;  
+                case 8:
+                    break;  
+                case 9:
                     isActive = false;
                     break;
                 default:
