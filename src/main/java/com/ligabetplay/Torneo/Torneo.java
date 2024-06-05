@@ -20,6 +20,20 @@ public class Torneo {
         }     
     }
 
+    public static int validInt(Scanner sc, String errMesage, String txt){
+        int x;
+        System.out.print(txt);
+        try {
+            x = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.print(errMesage);
+            sc.nextLine();
+            x = -1;
+            return x;
+        }
+        return x;
+    }
+ 
     public static ArrayList<Equipo> tabla(ArrayList<Equipo> listaEquipos, String header, Scanner sc){
         clearScreen();
         System.out.println(header);
@@ -57,19 +71,10 @@ public class Torneo {
                 System.out.println(MessageFormat.format("{0}. {1}.", (i+1), menu[i]));
             }
             
-            int op;
-            do {                
-                try {
-                    System.out.print("-> ");
-                    op = Integer.parseInt(sc.nextLine());
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.print(errMesage);
-                    sc.nextLine();
-                    continue mainLoop;
-                }
-                
-            } while (true);
+            int op = validInt(sc, errMesage, "-> ");
+            if (op == -1){
+                continue mainLoop;
+            }
             
             switch (op) {
                 case 1:

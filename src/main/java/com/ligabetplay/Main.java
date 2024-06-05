@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 import com.ligabetplay.Torneo.Torneo;
 import com.ligabetplay.equipo.Equipo;
+import com.ligabetplay.listas.Listas;
+import com.ligabetplay.newPersonal.newPersonal;
 import com.ligabetplay.newliga.Newliga;
 import com.ligabetplay.reportes.Reportes;
-import com.ligabetplay.personal.Personal;
-
-
  
 public class Main {
 
@@ -26,6 +25,20 @@ public class Main {
         }     
     }
 
+    public static int validInt(Scanner sc, String errMesage, String txt){
+        int x;
+        System.out.print(txt);
+        try {
+            x = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.print(errMesage);
+            sc.nextLine();
+            x = -1;
+            return x;
+        }
+        return x;
+    }
+
     public static void main(String[] args) {
         
         String header = """
@@ -33,7 +46,7 @@ public class Main {
             | LIGA BETPLAY |
             ----------------
             """;
-        String[] menu = {"Nueva liga","Ver equipos","Ingresar personal","Reportes","Salir"};
+        String[] menu = {"Nueva liga","Ver equipos","Ingresar personal","Reportes","Listas","Salir"};
         
         String errMesage = "Error: El dato ingresado es incorrecto, intentelo de nuevo ";
         
@@ -48,19 +61,10 @@ public class Main {
             for (int i = 0; i < menu.length; i++) {
                 System.out.println(MessageFormat.format("{0}. {1}.", (i+1), menu[i]));
             }
-            int op;
-            // do {                
-                try {
-                    System.out.print("-> ");
-                    op = Integer.parseInt(sc.nextLine());
-                    // break;
-                } catch (NumberFormatException e) {
-                    System.out.print
-                    (errMesage);
-                    sc.nextLine();
-                    continue mainLoop;
-                }
-            // } while (true);
+            int op = validInt(sc, errMesage, "-> ");
+            if(op == -1){
+                continue mainLoop;
+            }
 
             switch (op) {
                 case 1:
@@ -71,13 +75,15 @@ public class Main {
                         listaEquipos = Torneo.main(listaEquipos, sc);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
+                        sc.nextLine();
                     }
                     break;
                 case 3:
                     if (listaEquipos.size() > 0) {
-                        Personal.main(sc, listaEquipos);
+                        newPersonal.main(sc, listaEquipos);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
+                        sc.nextLine();
                     }
                     break;                   
                 case 4:
@@ -85,13 +91,23 @@ public class Main {
                         Reportes.main(listaEquipos, sc);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
+                        sc.nextLine();
                     }
+                    break;       
+                case 5:   
+                    if (listaEquipos.size() > 0) {
+                        Listas.main(sc);
+                    } else {
+                        System.out.println("Error: no hay equipos registrados, registra algunos.");
+                        sc.nextLine();
+                    }         
                     break;                   
-                case 5:
+                case 6:
                     isActive = false;
                     break;
                 default:
                     System.out.println(errMesage);
+                    sc.nextLine();
                     break;
             } 
         } 

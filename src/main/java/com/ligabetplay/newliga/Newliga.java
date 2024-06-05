@@ -30,6 +30,20 @@ public class Newliga {
         return true;
     }
 
+    public static int validInt(Scanner sc, String errMesage, String txt){
+        int x;
+        System.out.print(txt);
+        try {
+            x = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.print(errMesage);
+            sc.nextLine();
+            x = -1;
+            return x;
+        }
+        return x;
+    }
+
     public static ArrayList<Equipo> jugartorneo(ArrayList<Equipo> listaEquipos){
         for (Equipo equipo1 : listaEquipos) {
             for (Equipo equipo2 : listaEquipos) {
@@ -121,23 +135,19 @@ public class Newliga {
                 System.out.println(MessageFormat.format("{0}. {1}.", (i+1), menu[i]));
             }
             
-            int op;
-            do {                
-                try {
-                    System.out.print("-> ");
-                    op = Integer.parseInt(sc.nextLine());
-                    break;
-                } catch (NumberFormatException e) {
-                    System.out.print(errMesage);
-                    sc.nextLine();
-                    continue mainLoop;
-                }
-                
-            } while (true);
-            
+            int op = validInt(sc, errMesage, "-> ");
+            if (op == -1){
+                continue mainLoop;
+            }
+            String x;
             switch (op) {
                 case 1:
-                    listaEquipos = crearEquipo(sc, listaEquipos, id, header);
+                    do {    
+                        listaEquipos = crearEquipo(sc, listaEquipos, id, header);
+                        id++;
+                        System.out.println("Desea ingresar otro equipo? si/ENTER");
+                        x = sc.nextLine();
+                    } while (!x.isEmpty());
                     break;
                 case 2:
                     isActive = false;
@@ -146,10 +156,7 @@ public class Newliga {
                     System.out.println(errMesage);  
                     break;
             }
-            id++;
         }
-
         return jugartorneo(listaEquipos);
-
     }
 }
