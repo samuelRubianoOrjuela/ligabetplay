@@ -3,12 +3,15 @@ package com.ligabetplay;
 import java.text.MessageFormat;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ligabetplay.Torneo.Torneo;
 import com.ligabetplay.equipo.Equipo;
 import com.ligabetplay.listas.Listas;
 import com.ligabetplay.newPersonal.newPersonal;
 import com.ligabetplay.newliga.Newliga;
+import com.ligabetplay.personal.Personal;
 import com.ligabetplay.reportes.Reportes;
  
 public class Main {
@@ -52,6 +55,7 @@ public class Main {
         
         Scanner sc = new Scanner(System.in);
         ArrayList<Equipo> listaEquipos = new ArrayList<>();
+        Map<String, ArrayList<? extends Personal>> mapPersonas = new HashMap<>();
         boolean isActive = true;
         mainLoop:
         while (isActive) {
@@ -80,7 +84,7 @@ public class Main {
                     break;
                 case 3:
                     if (listaEquipos.size() > 0) {
-                        newPersonal.main(sc, listaEquipos);
+                        mapPersonas = newPersonal.main(sc, listaEquipos);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
                         sc.nextLine();
@@ -96,7 +100,7 @@ public class Main {
                     break;       
                 case 5:   
                     if (listaEquipos.size() > 0) {
-                        Listas.main(sc);
+                        Listas.main(sc, listaEquipos, mapPersonas);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
                         sc.nextLine();

@@ -2,6 +2,8 @@ package com.ligabetplay.newPersonal;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import com.ligabetplay.equipo.Equipo;
@@ -56,7 +58,7 @@ public class newPersonal {
         return listaEquipos;
     }
 
-    public static void crearPersona(Scanner sc, String errMesage, ArrayList<Equipo> listaEquipos, ArrayList<Personal> listaPersonas, int idPersona, String header, String tipoPersona, int op) {
+    public static ArrayList<Personal> crearPersona(Scanner sc, String errMesage, ArrayList<Equipo> listaEquipos, ArrayList<Personal> listaPersonas, int idPersona, String header, String tipoPersona, int op) {
         clearScreen();
         System.out.println(header);
         System.out.print(MessageFormat.format("Ingrese el nombre del {0}: ", tipoPersona));
@@ -105,12 +107,14 @@ public class newPersonal {
                 } while (anyosExp == -1);
                 Medico newMedico = new Medico(idPersona, nombre, apellido, edad, idEquipo, titulacion, anyosExp);
                 listaPersonas.add(newMedico);
+                break;
             default:
                 break;
         }
+        return listaPersonas;
     }
 
-    public static void main(Scanner sc, ArrayList<Equipo> listaEquipos) {
+    public static Map<String, ArrayList<? extends Personal>> main(Scanner sc, ArrayList<Equipo> listaEquipos) {
         String header = """
                 -------------------------
                 | PERSONAL LIGA BETPLAY |
@@ -122,6 +126,7 @@ public class newPersonal {
 
         ArrayList<Equipo> newListaEquipos = sortId(listaEquipos);
         ArrayList<Personal> listaPersonas = new ArrayList<>();
+        Map<String, ArrayList<? extends Personal>> mapPersonas = new HashMap<>();
 
         int idJugador = 1;
         int idTecnico = 1;
@@ -144,7 +149,7 @@ public class newPersonal {
             switch (op) {
                 case 1:
                     do {
-                        crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idJugador, header, "jugador", op);
+                        mapPersonas.put("listaJugadores", crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idJugador, header, "jugador", op));
                         idJugador++;
                         System.out.println("Desea ingresar otro jugador? si/ENTER");
                         x = sc.nextLine();
@@ -152,7 +157,7 @@ public class newPersonal {
                     break;
                 case 2:
                     do {
-                        crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idTecnico, header, "tecnico", op);
+                        mapPersonas.put("listaTecnicos", crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idTecnico, header, "tecnico", op));
                         idTecnico++;
                         System.out.print("Desea ingresar otro tecnico? si/ENTER ");
                         x = sc.nextLine();
@@ -160,7 +165,7 @@ public class newPersonal {
                     break;
                 case 3:
                     do {
-                        crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idMedico, header, "medico", op);
+                        mapPersonas.put("listaMedicos", crearPersona(sc, errMesage, newListaEquipos, listaPersonas, idMedico, header, "medico", op));
                         idMedico++;
                         System.out.print("Desea ingresar otro medico? si/ENTER ");
                         x = sc.nextLine();
@@ -174,6 +179,6 @@ public class newPersonal {
                     break;
             }
         }
+        return mapPersonas;
     }
-
 }

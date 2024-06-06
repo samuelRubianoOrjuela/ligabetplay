@@ -12,8 +12,29 @@ public class Personal {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
+        
     }
     
+    public int getId() {
+        return id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public int getIdEquipo() {
+        return idEquipo;
+    }
+
     public static class Jugador extends Personal{
         int dorsal;
         String demarcacion;
@@ -22,7 +43,16 @@ public class Personal {
             super(id, nombre, apellido, edad, idEquipo);
             this.dorsal = dorsal;
             this.demarcacion = demarcacion;
-        }        
+        }
+
+        public int getDorsal() {
+            return dorsal;
+        }
+
+        public String getDemarcacion() {
+            return demarcacion;
+        }
+            
     }
 
     public static class Tecnico extends Personal{
@@ -34,6 +64,15 @@ public class Personal {
             this.idFederacion = idFederacion;
             this.tipoTecnico = tipoTecnico;
         }
+
+        public int getIdFederacion() {
+            return idFederacion;
+        }
+
+        public String getTipoTecnico() {
+            return tipoTecnico;
+        }
+        
     }
     
     public static class Medico extends Personal{
@@ -45,6 +84,14 @@ public class Personal {
             super(id, nombre, apellido, edad, idEquipo);
             this.titulacion = titulacion;
             this.anyosExp = anyosExp;
+        }
+
+        public String getTitulacion() {
+            return titulacion;
+        }
+
+        public int getAnyosExp() {
+            return anyosExp;
         }
     }
 }

@@ -1,7 +1,13 @@
 package com.ligabetplay.listas;
 
 import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
+
+import com.ligabetplay.equipo.Equipo;
+import com.ligabetplay.newPersonal.newPersonal;
+import com.ligabetplay.personal.Personal;
 
 public class Listas {
 
@@ -31,7 +37,33 @@ public class Listas {
         return x;
     }
 
-    public static void main(Scanner sc) {
+    public static void listar(Scanner sc, Map<String, ArrayList<? extends Personal>> mapPersonas){
+        clearScreen();
+        System.out.println("""
+                -------------------
+                | LISTA JUGADORES |
+                -------------------
+                """);
+        ArrayList<? extends Personal> listaJugadores = mapPersonas.get("listaJugadores");        
+        for (Personal jugador : listaJugadores) {
+            System.out.println(MessageFormat.format("{0}. {1} {2}", jugador.getId(), jugador.getNombre(), jugador.getApellido()));
+        }
+        sc.nextLine();
+    }
+    public static void listarEquipos(Scanner sc , ArrayList<Equipo> listaEquipos){
+        clearScreen();
+        System.out.println("""
+                -----------------
+                | LISTA EQUIPOS |
+                -----------------
+                """);
+        for (Equipo equipo : listaEquipos) {
+            System.out.println(MessageFormat.format("{0}. {1}", equipo.getId(), equipo.getNombreEquipo()));
+        }
+        sc.nextLine();
+    }
+
+    public static void main(Scanner sc, ArrayList<Equipo> listaEquipos, Map<String, ArrayList<? extends Personal>> mapPersonas) {
         String header = """
                 -----------------------
                 | LISTAS LIGA BETPLAY |
@@ -57,8 +89,16 @@ public class Listas {
             
             switch (op) {
                 case 1:
+                    listarEquipos(sc, newPersonal.sortId(listaEquipos));
                     break;
                 case 2:
+                    listar(sc, mapPersonas);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
                     isActive = false;
                     break;
                 default:
