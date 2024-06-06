@@ -12,7 +12,7 @@ public class Personal {
         this.nombre = nombre;
         this.apellido = apellido;
         this.edad = edad;
-        
+        this.idEquipo = idEquipo;
     }
     
     public int getId() {

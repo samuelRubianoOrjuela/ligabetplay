@@ -5,7 +5,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
+ 
 import com.ligabetplay.Torneo.Torneo;
 import com.ligabetplay.equipo.Equipo;
 import com.ligabetplay.listas.Listas;
@@ -100,7 +100,7 @@ public class Main {
                     break;       
                 case 5:   
                     if (listaEquipos.size() > 0) {
-                        Listas.main(sc, listaEquipos, mapPersonas);
+                        Listas.main(sc, newPersonal.sortId(listaEquipos), mapPersonas);
                     } else {
                         System.out.println("Error: no hay equipos registrados, registra algunos.");
                         sc.nextLine();

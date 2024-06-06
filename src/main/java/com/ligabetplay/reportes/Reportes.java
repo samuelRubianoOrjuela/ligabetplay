@@ -36,12 +36,12 @@ public class Reportes {
         clearScreen();
         System.out.println(header);
         System.out.println("\nEquipo(s) con mas goles anotados:\n");
-        for (int i = 0; i < listaEquipos.size(); i++){
-            if (listaEquipos.get(0).getGf() == listaEquipos.get(i).getGf()){                
+        for (Equipo equipo: listaEquipos){
+            if (listaEquipos.get(0).getGf() == equipo.getGf()){                
                 System.out.println(MessageFormat.format("""
                     Nombre equipo: {0}
                     Goles anotados: {1}
-                    """, listaEquipos.get(i).getNombreEquipo(), listaEquipos.get(i).getGf()));
+                    """, equipo.getNombreEquipo(), equipo.getGf()));
             }
         }
         sc.nextLine();
@@ -60,20 +60,20 @@ public class Reportes {
             default:
                 break;
         }
-        for (int i = 0; i < listaEquipos.size(); i++){
-            if (listaEquipos.get(0).getTp() == listaEquipos.get(i).getTp()){  
+        for (Equipo equipo: listaEquipos){
+            if (listaEquipos.get(0).getTp() == equipo.getTp()){  
                 switch (op) {
                     case 2:
                         System.out.println(MessageFormat.format("""
                             Nombre equipo: {0}
                             Puntos obtenidos: {1}
-                            """, listaEquipos.get(i).getNombreEquipo(), listaEquipos.get(i).getTp()));
+                            """, equipo.getNombreEquipo(), equipo.getTp()));
                         break;
                     case 3:
                         System.out.println(MessageFormat.format("""
                             Nombre equipo: {0}
                             Partidos ganados: {1}
-                            """, listaEquipos.get(i).getNombreEquipo(), listaEquipos.get(i).getPg()));
+                            """, equipo.getNombreEquipo(), equipo.getPg()));
                             break;
                     default:
                         break;
@@ -104,10 +104,10 @@ public class Reportes {
                 ------------------------------------
                 | Equipo | Total de goles anotados |
                 ------------------------------------""");
-        for (int i = 0; i < listaEquipos.size(); i++){
+        for (Equipo equipo: listaEquipos){
             System.out.println(MessageFormat.format("""
                 |  {0}     |           {1}             |
-                ------------------------------------""", listaEquipos.get(i).getNombreEquipo(), listaEquipos.get(i).getGf()));
+                ------------------------------------""", equipo.getNombreEquipo(), equipo.getGf()));
         }
         sc.nextLine();
     }
@@ -115,9 +115,9 @@ public class Reportes {
     public static void promG(ArrayList<Equipo> listaEquipos, String header, Scanner sc){
         int cant = 0;
         int sum = 0;
-        for (int i = 0; i < listaEquipos.size(); i++) {
+        for (Equipo equipo: listaEquipos){
             cant++;
-            sum += listaEquipos.get(i).getGf();
+            sum += equipo.getGf();
         }
         clearScreen();
         System.out.println(header);

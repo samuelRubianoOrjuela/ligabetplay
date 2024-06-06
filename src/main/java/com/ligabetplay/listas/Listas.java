@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import com.ligabetplay.equipo.Equipo;
-import com.ligabetplay.newPersonal.newPersonal;
 import com.ligabetplay.personal.Personal;
 
 public class Listas {
@@ -37,16 +36,57 @@ public class Listas {
         return x;
     }
 
-    public static void listar(Scanner sc, Map<String, ArrayList<? extends Personal>> mapPersonas){
+    public static void listar(Scanner sc, int op, ArrayList<Equipo> listaEquipos, Map<String, ArrayList<? extends Personal>> mapPersonas){
         clearScreen();
-        System.out.println("""
-                -------------------
-                | LISTA JUGADORES |
-                -------------------
-                """);
-        ArrayList<? extends Personal> listaJugadores = mapPersonas.get("listaJugadores");        
-        for (Personal jugador : listaJugadores) {
-            System.out.println(MessageFormat.format("{0}. {1} {2}", jugador.getId(), jugador.getNombre(), jugador.getApellido()));
+        for (Equipo equipo : listaEquipos) {
+            System.out.println(MessageFormat.format("- ID del equipo {0}: {1}", equipo.getNombreEquipo(), equipo.getId()));
+        }
+        int idSelected = validInt(sc, "Error: El dato ingresado es incorrecto, intentelo de nuevo", "Ingrese el ID del equipo del cual desea ver el personal: ");
+        switch (op) {
+            case 2:
+                System.out.println("""
+                    -------------------
+                    | LISTA JUGADORES |
+                    -------------------
+                    """);
+                ArrayList<? extends Personal> listaJugadores = mapPersonas.get("listaJugadores");  
+                System.out.println(MessageFormat.format("Estos son los tecnicos de {0}:", listaEquipos.get(idSelected).getNombreEquipo()));
+                for (Personal jugador : listaJugadores) {
+                    if (idSelected == jugador.getIdEquipo()) {
+                        System.out.println(MessageFormat.format("{0}. {1} {2}", jugador.getId(), jugador.getNombre(), jugador.getApellido()));
+                    }      
+                }
+                break;
+            case 3:
+                System.out.println("""
+                    ------------------
+                    | LISTA TECNICOS |
+                    ------------------
+                    """);
+                ArrayList<? extends Personal> listaTecnicos = mapPersonas.get("listaTecnicos");        
+                System.out.println(MessageFormat.format("Estos son los tecnicos de {0}:", listaEquipos.get(idSelected).getNombreEquipo()));
+                for (Personal tecnico : listaTecnicos) {
+                    if (idSelected == tecnico.getIdEquipo()) {
+                        System.out.println(MessageFormat.format("{0}. {1} {2}", tecnico.getId(), tecnico.getNombre(), tecnico.getApellido()));
+                    }
+                }
+                break;
+            case 4:
+                System.out.println("""
+                    -----------------
+                    | LISTA MEDICOS |
+                    -----------------
+                    """);
+                ArrayList<? extends Personal> listaMedicos = mapPersonas.get("listaMedicos");        
+                System.out.println(MessageFormat.format("Estos son los tecnicos de {0}:", listaEquipos.get(idSelected).getNombreEquipo()));
+                for (Personal medico : listaMedicos) {
+                    if (idSelected == medico.getIdEquipo()) {
+                        System.out.println(MessageFormat.format("{0}. {1} {2}", medico.getId(), medico.getNombre(), medico.getApellido()));
+                    }
+                }
+                break;
+            default:
+                break;
         }
         sc.nextLine();
     }
@@ -89,14 +129,16 @@ public class Listas {
             
             switch (op) {
                 case 1:
-                    listarEquipos(sc, newPersonal.sortId(listaEquipos));
+                    listarEquipos(sc, listaEquipos);
                     break;
                 case 2:
-                    listar(sc, mapPersonas);
+                    listar(sc, op, listaEquipos, mapPersonas);
                     break;
                 case 3:
+                    listar(sc, op, listaEquipos, mapPersonas);
                     break;
                 case 4:
+                    listar(sc, op, listaEquipos, mapPersonas);
                     break;
                 case 5:
                     isActive = false;

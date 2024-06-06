@@ -70,8 +70,8 @@ public class newPersonal {
             edad = validInt(sc, errMesage, MessageFormat.format("Ingrese la edad del {0}: ", tipoPersona));
         } while (edad == -1);
         System.out.println("Id equipos: ");
-        for (int i = 0; i < listaEquipos.size(); i++){               
-            System.out.println(MessageFormat.format("-{0}. id: {1}", listaEquipos.get(i).getNombreEquipo(), listaEquipos.get(i).getId()));
+        for (Equipo equipo: listaEquipos){               
+            System.out.println(MessageFormat.format("- ID del equipo {0}: {1}", equipo.getNombreEquipo(), equipo.getId()));
         }
         int idEquipo;
         do {
